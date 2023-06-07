@@ -78,8 +78,6 @@ void I_UpdateNoBlit (void){
   
 }
 void I_FinishUpdate (void){
-
-  
   int i = 0, x = 0, y = 0;
   while(i < SCREENWIDTH*SCREENHEIGHT){
     if(i % SCREENWIDTH == 0){
