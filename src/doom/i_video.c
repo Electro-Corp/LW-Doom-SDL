@@ -27,7 +27,7 @@
 #include <SDL/SDL.h>
 
 SDL_Surface *display;
-
+SDL_Event event;
 // debug
 //#define VIDEODEBUG 1
 
@@ -47,6 +47,10 @@ void I_InitGraphics (void){
   //SDL_WM_SetCaption("LW-Doom SDL","Doom");     
   // grab mouse
   //SDL_WM_GrabInput(SDL_GRAB_ON); // fire
+
+
+  // init sdl keyboard inputs
+  SDL_EnableUNICODE(1);
 }
 void I_ReadScreen(byte* src){
   
@@ -64,8 +68,22 @@ void I_StartFrame(void){
 // ticks
 void I_StartTic(){
   if(!display)return;
+  // keyboard 
+  event_t event;
+  while(SDL_PollEvent(&event)){
+    switch( event.type ){
+      case SDL_QUIT:
+        exit(0);
+        break;
 
-  
+      // bruh
+      case SDL_KEYDOWN:
+        event.type = ev_keydown;
+        event.data1 = &event.key;\
+        D_PostEvent(&event);
+        break;
+    }
+  }
 }
 
 
@@ -87,10 +105,10 @@ void I_FinishUpdate (void){
       x++;
     }
     Uint8 *p = (Uint8 *)display->pixels + y * display->pitch + x * 4;
-    printf("p is %d\n",p);
     *(Uint32 *)p = screens[0][i++];
   }
-  //display = surface;  #ifdef VIDEODEBUG
+  //display = surface;  
+  #ifdef VIDEODEBUG
   SDL_Rect sDim;
   sDim.w = 100;
 	sDim.h = 100;
