@@ -157,7 +157,7 @@ void I_FinishUpdate (void){
     if(i % (SCREENWIDTH*2) == 0){
       x = 0;
       y++;
-      if(gamestate == GS_LEVEL && y % 3 == 0){
+      if(gamestate == GS_LEVEL && y % 2 == 0 && y != 0){
         i -= (SCREENWIDTH*2);
       }
     }else{
