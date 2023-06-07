@@ -90,7 +90,7 @@ int translatekey(SDL_KeyboardEvent* key){
     case SDLK_F10:	rc = KEY_F10;		break;
     case SDLK_F11:	rc = KEY_F11;		break;
     case SDLK_F12:	rc = KEY_F12;		break;
-    default: 
+    default: break;
   }
   return rc;
 }
@@ -109,7 +109,7 @@ void I_StartTic(){
       // bruh
       case SDL_KEYDOWN:
         eventt.type = ev_keydown;
-        eventt.data1 = translatekey(&event.key);
+        //eventt.data1 = translatekey(&event.key);
         D_PostEvent(&eventt);
         break;
       case SDL_KEYUP:
