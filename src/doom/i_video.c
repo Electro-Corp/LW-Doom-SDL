@@ -77,6 +77,20 @@ int translatekey(SDL_KeyboardEvent* key){
     case SDLK_DOWN: rc = KEY_DOWNARROW; break;
 
     case SDLK_RETURN: rc = KEY_ENTER; break;
+    case SDLK_TAB:	rc = KEY_TAB;		break;
+    case SDLK_F1:	rc = KEY_F1;		break;
+    case SDLK_F2:	rc = KEY_F2;		break;
+    case SDLK_F3:	rc = KEY_F3;		break;
+    case SDLK_F4:	rc = KEY_F4;		break;
+    case SDLK_F5:	rc = KEY_F5;		break;
+    case SDLK_F6:	rc = KEY_F6;		break;
+    case SDLK_F7:	rc = KEY_F7;		break;
+    case SDLK_F8:	rc = KEY_F8;		break;
+    case SDLK_F9:	rc = KEY_F9;		break;
+    case SDLK_F10:	rc = KEY_F10;		break;
+    case SDLK_F11:	rc = KEY_F11;		break;
+    case SDLK_F12:	rc = KEY_F12;		break;
+    default: 
   }
   return rc;
 }
