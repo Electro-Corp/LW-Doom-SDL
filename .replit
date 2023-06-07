@@ -1,0 +1,4 @@
+run = "cd src/doom && make && cd linux && ./linuxxdoom"
+
+[nix]
+channel = "stable-22_11"
