@@ -158,8 +158,9 @@ void I_FinishUpdate (void){
       x = 0;
       y++;
       if(gamestate == GS_LEVEL && y % 2 == 0 && y != 0){
-        i -= (SCREENWIDTH*2);
-        printf("%d is I\n",i)
+        i = i - (SCREENWIDTH*2);
+        printf("%d is I\n",i);
+        getchar();
       }
     }else{
       x++;
