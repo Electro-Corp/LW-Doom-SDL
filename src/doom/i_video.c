@@ -69,7 +69,7 @@ void I_StartFrame(void){
 void I_StartTic(){
   if(!display)return;
   // keyboard 
-  event_t event;
+  event_t eventt;
   while(SDL_PollEvent(&event)){
     switch( event.type ){
       case SDL_QUIT:
@@ -79,7 +79,7 @@ void I_StartTic(){
       // bruh
       case SDL_KEYDOWN:
         event.type = ev_keydown;
-        event.data1 = &event.key;\
+        event.data1 = &event.key;
         D_PostEvent(&event);
         break;
     }
