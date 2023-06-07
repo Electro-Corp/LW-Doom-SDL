@@ -151,12 +151,15 @@ void I_UpdateNoBlit (void){
 }
 void I_FinishUpdate (void){
   // 
-  //if(gamestate == )
+  
   int i = 0, x = 0, y = 0, t = 0;
   while(i < SCREENWIDTH*SCREENHEIGHT*2){ //
     if(i % (SCREENWIDTH*2) == 0){
       x = 0;
       y++;
+      if(gamestate == GS_LEVEL && y % 3 == 0){
+        i -= (SCREENWIDTH*2);
+      }
     }else{
       x++;
     }
