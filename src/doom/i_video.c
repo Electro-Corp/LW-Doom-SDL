@@ -43,13 +43,14 @@ void I_InitGraphics (void){
   display = SDL_SetVideoMode(SCREENWIDTH, SCREENHEIGHT, 8, SDL_HWSURFACE);
   if(!display){
     I_Error("Display was not created for some reason, figure it out.");
-  }
-  //SDL_WM_SetCaption("LW-Doom SDL","Doom");     
+  }                  
+  //SDL_WM_SetCaption("LW-Doom SDL","Doom");          
   // grab mouse
   //SDL_WM_GrabInput(SDL_GRAB_ON); // fire
 
 
-  // init sdl keyboard inputs
+  // init sdl keyboard inputs               
+  // kys (keep yourself safe)
   SDL_EnableUNICODE(1);
 }
 void I_ReadScreen(byte* src){
@@ -87,9 +88,12 @@ int translatekey(SDL_KeyboardEvent* key){
     case SDLK_F7:	rc = KEY_F7;		break;
     case SDLK_F8:	rc = KEY_F8;		break;
     case SDLK_F9:	rc = KEY_F9;		break;
-    case SDLK_F10:	rc = KEY_F10;		break;
-    case SDLK_F11:	rc = KEY_F11;		break;
+    case SDLK_F10:	rc = KEY_F11;		break;
     case SDLK_F12:	rc = KEY_F12;		break;
+    case SDLK_ESCAPE: rc = KEY_ESCAPE; break;
+    case SDLK_LCTRL: rc = KEY_RCTRL; break;
+    case SDLK_SPACE: rc = rc - SDLK_SPACE + ' '; break;
+    //case SDLK_SPACE: rc = KEY_SPACE; break;
     default: break;
   }
   return rc;
@@ -109,7 +113,7 @@ void I_StartTic(){
       // bruh
       case SDL_KEYDOWN:
         eventt.type = ev_keydown;
-        //eventt.data1 = translatekey(&event.key);
+        eventt.data1 = translatekey(&event.key);
         D_PostEvent(&eventt);
         break;
       case SDL_KEYUP:
@@ -118,28 +122,39 @@ void I_StartTic(){
         D_PostEvent(&eventt);
         break;
     }
-  }
+  }      
 }
 
-
-// Takes full 8 bit values.
+static SDL_Color colors[256];
+/*
+  Sets the color pallete 
+*/
 void I_SetPalette (byte* palette){
-  
+  int	c;
+  for(int i = 0; i < 256; i++){
+    c = gammatable[usegamma][*palette++]; 
+    colors[i].r = (c << 8) + c; 
+    c = gammatable[usegamma][*palette++];
+		colors[i].g = (c << 8) + c;
+    c = gammatable[usegamma][*palette++];
+		colors[i].b = (c << 8) + c;
+  }
+  SDL_SetPalette(display, SDL_LOGPAL|SDL_PHYSPAL, colors, 0, 256);
 }
 
 void I_UpdateNoBlit (void){
   
 }
 void I_FinishUpdate (void){
-  int i = 0, x = 0, y = 0;
-  while(i < SCREENWIDTH*SCREENHEIGHT){
-    if(i % SCREENWIDTH == 0){
+  int i = 0, x = 0, y = 0, t = 0;
+  while(i < SCREENWIDTH*SCREENHEIGHT*2){ //
+    if(i % (SCREENWIDTH*2) == 0){
       x = 0;
       y++;
     }else{
       x++;
     }
-    Uint8 *p = (Uint8 *)display->pixels + y * display->pitch + x * 4;
+    Uint8 *p = ((Uint8 *) display->pixels+ y * display->pitch+ x * display->format->BytesPerPixel);
     *(Uint32 *)p = screens[0][i++];
   }
   //display = surface;  

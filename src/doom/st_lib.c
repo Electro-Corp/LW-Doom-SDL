@@ -119,8 +119,8 @@ STlib_drawNum
     // clear the area
     x = n->x - numdigits*w;
 
-    if (n->y - ST_Y < 0)
-	I_Error("drawNum: n->y - ST_Y < 0");
+    //if (n->y - ST_Y < 0)
+	   //I_Error("drawNum: n->y - ST_Y < 0");
 
     V_CopyRect(x, n->y - ST_Y, BG, w*numdigits, h, x, n->y, FG);
 
