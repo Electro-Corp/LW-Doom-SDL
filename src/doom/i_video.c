@@ -76,7 +76,7 @@ int translatekey(SDL_KeyboardEvent* key){
     case SDLK_UP: rc = KEY_UPARROW; break;
     case SDLK_DOWN: rc = KEY_DOWNARROW; break;
 
-    case SDLK_RETURN: rc = KEY_ENTER; breal;
+    case SDLK_RETURN: rc = KEY_ENTER; break;
   }
   return rc;
 }
