@@ -70,7 +70,7 @@ void I_StartFrame(void){
 */
 int translatekey(SDL_KeyboardEvent key){
   int rc;
-  switch(key.keysym){
+  switch(key.keysym.sym){
     case SDLK_LEFT: rc = KEY_LEFTARROW; break;
     case SDLK_RIGHT: rc = KEY_RIGHTARROW; break;
     case SDLK_UP: rc = KEY_UPARROW; break;
