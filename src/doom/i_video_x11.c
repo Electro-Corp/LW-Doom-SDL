@@ -689,7 +689,7 @@ void grabsharedmemory(int size)
 	  (int) (image->data));
 }
 
-void I_InitGraphics(void)
+void I_InitGraphicws(void)
 {
 
     char*		displayname;

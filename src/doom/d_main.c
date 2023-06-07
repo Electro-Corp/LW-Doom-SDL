@@ -192,6 +192,7 @@ void R_ExecuteSetViewSize (void);
 
 void D_Display (void)
 {
+    //viewheight = 200;
     static  boolean		viewactivestate = false;
     static  boolean		menuactivestate = false;
     static  boolean		inhelpscreensstate = false;

@@ -61,11 +61,11 @@ rcsid[] = "$Id: r_draw.c,v 1.4 1997/02/03 16:47:55 b1 Exp $";
 
 
 byte*		viewimage; 
-int		viewwidth;
-int		scaledviewwidth;
-int		viewheight;
+int		viewwidth = 320;
+int		scaledviewwidth;// = 1;
+int		viewheight = 200;
 int		viewwindowx;
-int		viewwindowy; 
+int		viewwindowy;              
 byte*		ylookup[MAXHEIGHT]; 
 int		columnofs[MAXWIDTH]; 
 

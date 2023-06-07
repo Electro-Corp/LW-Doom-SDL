@@ -92,9 +92,13 @@ int translatekey(SDL_KeyboardEvent* key){
     case SDLK_F12:	rc = KEY_F12;		break;
     case SDLK_ESCAPE: rc = KEY_ESCAPE; break;
     case SDLK_LCTRL: rc = KEY_RCTRL; break;
-    case SDLK_SPACE: rc = rc - SDLK_SPACE + ' '; break;
+    case SDLK_LSHIFT: rc = KEY_RSHIFT; break;
     //case SDLK_SPACE: rc = KEY_SPACE; break;
-    default: break;
+    default: 
+    if (key->keysym.sym == SDLK_SPACE) rc = ' ';
+	  else rc = key->keysym.sym;
+    break;
+      
   }
   return rc;
 }
@@ -146,6 +150,8 @@ void I_UpdateNoBlit (void){
   
 }
 void I_FinishUpdate (void){
+  // 
+  //if(gamestate == )
   int i = 0, x = 0, y = 0, t = 0;
   while(i < SCREENWIDTH*SCREENHEIGHT*2){ //
     if(i % (SCREENWIDTH*2) == 0){
