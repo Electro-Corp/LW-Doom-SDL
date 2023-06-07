@@ -161,6 +161,9 @@ void I_FinishUpdate (void){
         i = i - (SCREENWIDTH*2);
         printf("%d is I\n",i);
         getchar();
+      }else if(gamestate == GS_LEVEL){
+        printf("%d is I\n",i);
+        getcha
       }
     }else{
       x++;
