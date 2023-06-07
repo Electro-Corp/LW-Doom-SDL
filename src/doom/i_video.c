@@ -87,7 +87,7 @@ void I_FinishUpdate (void){
       x++;
     }
     Uint8 *p = (Uint8 *)display->pixels + y * display->pitch + x * 4;
-    printf("")
+    printf("p is %d\n",p);
     *(Uint32 *)p = screens[0][i++];
   }
   //display = surface;  #ifdef VIDEODEBUG
