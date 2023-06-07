@@ -65,6 +65,20 @@ void I_StartFrame(void){
   // errrm what the guh
 }
 
+/*
+  Convert SDL Key to doom key
+*/
+int translatekey(SDL_KeyboardEvent key){
+  int rc;
+  switch(key.keysym){
+    case SDLK_LEFT: rc = KEY_LEFTARROW; break;
+    case SDLK_RIGHT: rc = KEY_RIGHTARROW; break;
+    case SDLK_UP: rc = KEY_LEFTARROW; break;
+    case SDLK_DOWN: rc = KEY_DOWNARROW; break;
+  }
+  return rc;
+}
+
 // ticks
 void I_StartTic(){
   if(!display)return;
@@ -78,9 +92,14 @@ void I_StartTic(){
 
       // bruh
       case SDL_KEYDOWN:
-        event.type = ev_keydown;
-        event.data1 = &event.key;
-        D_PostEvent(&event);
+        eventt.type = ev_keydown;
+        eventt.data1 = translatekey(&event.key);
+        D_PostEvent(&eventt);
+        break;
+      case SDL_KEYUP:
+        eventt.type = ev_keyup;
+        eventt.data1 = translatekey(&event.key);
+        D_PostEvent(&eventt);
         break;
     }
   }
