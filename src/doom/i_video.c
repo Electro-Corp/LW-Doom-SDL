@@ -77,7 +77,7 @@ void I_SetPalette (byte* palette){
 void I_UpdateNoBlit (void){
   
 }
-void I_FinishUpdate (void){
+void I_FinishUpdate (void){g
   int i = 0, x = 0, y = 0;
   while(i < SCREENWIDTH*SCREENHEIGHT){
     if(i % SCREENWIDTH == 0){
@@ -89,6 +89,8 @@ void I_FinishUpdate (void){
     Uint8 *p = (Uint8 *)display->pixels + y * display->pitch + x * 4;
     *(Uint32 *)p = screens[0][i++];
   }
+  int s = sizeof(screens[0])/sizeof(screens[0][0]);
+  printf("i is %d, s is %d")
   //display = surface;
   #ifdef VIDEODEBUG
   SDL_Rect sDim;
