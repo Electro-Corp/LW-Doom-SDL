@@ -158,7 +158,8 @@ void I_FinishUpdate (void){
       x = 0;
       y++;
       if(gamestate == GS_LEVEL && y % 2 == 0 && y != 0){
-        //i -= (SCREENWIDTH*2);
+        i -= (SCREENWIDTH*2);
+        printf("%d is I\n",i)
       }
     }else{
       x++;
@@ -167,7 +168,7 @@ void I_FinishUpdate (void){
     
     *(Uint32 *)p = screens[0][i++];
   }
-  printf("x,y,i = %d,%d,%d\n",)
+  
   //display = surface;  
   #ifdef VIDEODEBUG
   SDL_Rect sDim;
