@@ -159,17 +159,12 @@ void I_FinishUpdate (void){
       y++;
       if(gamestate == GS_LEVEL && y % 2 == 0 && y != 0){
         i = i - (SCREENWIDTH*2);
-        printf("%d is I\n",i);
-        getchar();
-      }else if(gamestate == GS_LEVEL){
-        printf("%d is I\n",i);
-        getcha
       }
     }else{
       x++;
     }
     Uint8 *p = ((Uint8 *) display->pixels+ y * display->pitch+ x * display->format->BytesPerPixel);
-    
+    if(i < SCREENWIDTH*SCREENHEIGHT*2)
     *(Uint32 *)p = screens[0][i++];
   }
   
