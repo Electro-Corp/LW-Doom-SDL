@@ -89,7 +89,7 @@ void I_FinishUpdate (void){
     Uint8 *p = (Uint8 *)display->pixels + y * display->pitch + x * 4;
     *(Uint32 *)p = screens[0][i++];
   }
-  int s = sizeof(screens[0][0])/sizeof(screens[0][0]);
+  int s = sizeof(screens[0])/sizeof(screens[0][0]);
   printf("i is %d, s is %d\n",i,s);
   //display = surface;
   #ifdef VIDEODEBUG
