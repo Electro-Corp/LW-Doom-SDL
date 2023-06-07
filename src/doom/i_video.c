@@ -68,7 +68,7 @@ void I_StartFrame(void){
 /*
   Convert SDL Key to doom key
 */
-int translatekey(SDL_KeyboardEvent key){
+int translatekey(SDL_KeyboardEvent* key){
   int rc;
   switch(key.keysym.sym){
     case SDLK_LEFT: rc = KEY_LEFTARROW; break;
