@@ -35,7 +35,7 @@
 //#else
 //#include <SDL.h>
 //#endif
-SDL_Surface *display;
+SDL_Surface* display;
 SDL_Event event;
 // debug
 //#define VIDEODEBUG 1
@@ -48,43 +48,43 @@ SDL_Event event;
 /*
   Init SDL
 */
-void I_InitGraphics (void){
-  // init sdl window
-  if(SDL_Init(SDL_INIT_VIDEO) < 0){
-    I_Error("Failed to init SDL in I_InitGraphics");
-  }
+void I_InitGraphics(void) {
+    // init sdl window
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        I_Error("Failed to init SDL in I_InitGraphics");
+    }
 
-  display = SDL_SetVideoMode(SCREENWIDTH * XSCALEFAC, SCREENHEIGHT * YSCALEFAC, 8, SDL_HWSURFACE);
-  if(!display){
-    I_Error("Display was not created for some reason, figure it out.");
-  }                  
-  SDL_WM_SetCaption("LW-Doom SDL","Doom");          
-  // grab mouse
-  //SDL_WM_GrabInput(SDL_GRAB_ON); // fire
+    display = SDL_SetVideoMode(SCREENWIDTH * XSCALEFAC, SCREENHEIGHT * YSCALEFAC, 8, SDL_HWSURFACE);
+    if (!display) {
+        I_Error("Display was not created for some reason, figure it out.");
+    }
+    SDL_WM_SetCaption("LW-Doom SDL", "Doom");
+    // grab mouse
+    //SDL_WM_GrabInput(SDL_GRAB_ON); // fire
 
 
-  // init sdl keyboard inputs               
-  // kys (keep yourself safe)
-  SDL_EnableUNICODE(1);
+    // init sdl keyboard inputs               
+    // kys (keep yourself safe)
+    SDL_EnableUNICODE(1);
 }
-void I_ReadScreen(byte* src){ 
-  memcpy(src, screens[0],SCREENWIDTH*SCREENHEIGHT);
-}
-
-void I_ShutdownGraphics(void){
-  SDL_Quit();
+void I_ReadScreen(byte* src) {
+    memcpy(src, screens[0], SCREENWIDTH * SCREENHEIGHT);
 }
 
-void I_StartFrame(void){
-  // errrm what the guh
+void I_ShutdownGraphics(void) {
+    SDL_Quit();
+}
+
+void I_StartFrame(void) {
+    // errrm what the guh
 }
 
 /*
   Convert SDL Key to doom key
 */
-int translatekey(SDL_KeyboardEvent* key){
-  int rc;
-  switch(key->keysym.sym){
+int translatekey(SDL_KeyboardEvent* key) {
+    int rc;
+    switch (key->keysym.sym) {
     case SDLK_LEFT: rc = KEY_LEFTARROW; break;
     case SDLK_RIGHT: rc = KEY_RIGHTARROW; break;
     case SDLK_UP: rc = KEY_UPARROW; break;
@@ -106,95 +106,93 @@ int translatekey(SDL_KeyboardEvent* key){
     case SDLK_ESCAPE: rc = KEY_ESCAPE; break;
     case SDLK_LCTRL: rc = KEY_RCTRL; break;
     case SDLK_LSHIFT: rc = KEY_RSHIFT; break;
-    //case SDLK_SPACE: rc = KEY_SPACE; break;
-    default: 
-    if (key->keysym.sym == SDLK_SPACE) rc = ' ';
-	  else rc = key->keysym.sym;
-    break;
-      
-  }
-  return rc;
+        //case SDLK_SPACE: rc = KEY_SPACE; break;
+    default:
+        if (key->keysym.sym == SDLK_SPACE) rc = ' ';
+        else rc = key->keysym.sym;
+        break;
+
+    }
+    return rc;
 }
 
 // ticks
-void I_StartTic(){
-  if(!display)return;
-  // keyboard 
-  event_t eventt;
-  while(SDL_PollEvent(&event)){
-    switch( event.type ){
-      case SDL_QUIT:
-        exit(0);
-        break;
+void I_StartTic() {
+    if (!display)return;
+    // keyboard 
+    event_t eventt;
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+        case SDL_QUIT:
+            exit(0);
+            break;
 
-      // bruh
-      case SDL_KEYDOWN:
-        eventt.type = ev_keydown;
-        eventt.data1 = translatekey(&event.key);
-        D_PostEvent(&eventt);
-        break;
-      case SDL_KEYUP:
-        eventt.type = ev_keyup;
-        eventt.data1 = translatekey(&event.key);
-        D_PostEvent(&eventt);
-        break;
+            // bruh
+        case SDL_KEYDOWN:
+            eventt.type = ev_keydown;
+            eventt.data1 = translatekey(&event.key);
+            D_PostEvent(&eventt);
+            break;
+        case SDL_KEYUP:
+            eventt.type = ev_keyup;
+            eventt.data1 = translatekey(&event.key);
+            D_PostEvent(&eventt);
+            break;
+        }
     }
-  }      
 }
 
 static SDL_Color colors[256];
 /*
-  Sets the color pallete 
+  Sets the color pallete
 */
-void I_SetPalette (byte* palette){
-  int	c;
-  for(int i = 0; i < 256; i++){
-    c = gammatable[usegamma][*palette++]; 
-    colors[i].r = (c << 8) + c; 
-    c = gammatable[usegamma][*palette++];
-		colors[i].g = (c << 8) + c;
-    c = gammatable[usegamma][*palette++];
-		colors[i].b = (c << 8) + c;
-  }
-  SDL_SetPalette(display, SDL_LOGPAL|SDL_PHYSPAL, colors, 0, 256);
+void I_SetPalette(byte* palette) {
+    int	c;
+    for (int i = 0; i < 256; i++) {
+        c = gammatable[usegamma][*palette++];
+        colors[i].r = (c << 8) + c;
+        c = gammatable[usegamma][*palette++];
+        colors[i].g = (c << 8) + c;
+        c = gammatable[usegamma][*palette++];
+        colors[i].b = (c << 8) + c;
+    }
+    SDL_SetPalette(display, SDL_LOGPAL | SDL_PHYSPAL, colors, 0, 256);
 }
 
-void I_UpdateNoBlit (void){
-  
+void I_UpdateNoBlit(void) {
+
 }
-void I_FinishUpdate (void){
-  // 
-  // such a bad hack
-  
+void I_FinishUpdate(void) {
+    // 
+    // such a bad hack
+
     int i = 1, x = 0, y = 0, t = 0, z = 0;
-    while(i < SCREENWIDTH*SCREENHEIGHT){ //
-      if(i % (SCREENWIDTH*2) == 0){
-        x = 0;
-        y++;
-        if(t++ < YSCALEFAC+3){
-          i = i - (SCREENWIDTH*2);
+    while (i < SCREENWIDTH * SCREENHEIGHT) { //
+        if (i % (SCREENWIDTH * 2) == 0) {
+            x = 0;
+            y++;
+            if (t++ < YSCALEFAC + 3) {
+                i = i - (SCREENWIDTH * 2);
+            }
+            else {
+                t = 0;
+            }
         }
-        else {
-            t = 0;
+        for (int c = 0; c < XSCALEFAC; c++) {
+            Uint8* p = ((Uint8*)display->pixels + y * display->pitch + (x++) * display->format->BytesPerPixel);
+            *(Uint32*)p = screens[0][i];
         }
-      }else{
-        x++;
-      }
-      for (int c = 0; c < XSCALEFAC - 1; c++) {
-          Uint8* p = ((Uint8*)display->pixels + y * display->pitch + (x++) * display->format->BytesPerPixel);
-          *(Uint32*)p = screens[0][i];
-      }
-      i++;
+        i++;
     }
 
-  //display = surface;  
-  #ifdef VIDEODEBUG
-  SDL_Rect sDim;
-  sDim.w = 100;
-	sDim.h = 100;
-	sDim.x = SCREENWIDTH/2;
-	sDim.y = SCREENHEIGHT/2;
-  SDL_FillRect(display, &sDim, SDL_MapRGB(display->format, 0, 0, 255));
-  #endif
-  SDL_UpdateRect(display, 0, 0, 0, 0);
+    //display = surface;  
+#ifdef VIDEODEBUG
+    SDL_Rect sDim;
+    sDim.w = 100;
+    sDim.h = 100;
+    sDim.x = SCREENWIDTH / 2;
+    sDim.y = SCREENHEIGHT / 2;
+    SDL_FillRect(display, &sDim, SDL_MapRGB(display->format, 0, 0, 255));
+#endif
+    SDL_UpdateRect(display, 0, 0, 0, 0);
 }

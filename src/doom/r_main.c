@@ -670,6 +670,7 @@ R_SetViewSize
 //
 void R_ExecuteSetViewSize (void)
 {
+    printf("R_ExecuteSetViewSize, setblocks is %d\n", setblocks);
     fixed_t	cosadj;
     fixed_t	dy;
     int		i;
@@ -681,12 +682,13 @@ void R_ExecuteSetViewSize (void)
 
     if (setblocks == 11)
     {
+        printf("setblocks == 11\n");
 	scaledviewwidth = SCREENWIDTH;
 	viewheight = SCREENHEIGHT;
     }
     else
     {
-	scaledviewwidth = setblocks*32;
+        scaledviewwidth = setblocks*32;
 	viewheight = (setblocks*168/10)&~7;
     }
     
@@ -758,6 +760,7 @@ void R_ExecuteSetViewSize (void)
 	    scalelight[i][j] = colormaps + level*256;
 	}
     }
+    printf("R_ExecuteSetViewSize end reached, debug:\nsetblocks = %d\nscaledviewwidth = %d\nviewwidth= %d",setblocks, scaledviewwidth, viewwidth);
 }
 
 

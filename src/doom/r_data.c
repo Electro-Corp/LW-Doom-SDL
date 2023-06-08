@@ -817,6 +817,7 @@ void R_PrecacheLevel (void)
     }
     
     // Precache sprites.
+
     spritepresent = alloca(numsprites);
     memset (spritepresent,0, numsprites);
 	
