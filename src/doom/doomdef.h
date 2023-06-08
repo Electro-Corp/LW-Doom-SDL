@@ -102,7 +102,7 @@ typedef enum
 //  menues etc. is tied to the scale implied
 //  by the graphics.
 #define	SCREEN_MUL		1
-#define	INV_ASPECT_RATIO	0.625 // 0.75, ideally
+#define	INV_ASPECT_RATIO	1 // 0.75, ideally
 
 // Defines suck. C sucks.
 // C++ might sucks for OOP, but it sure is a better C.

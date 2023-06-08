@@ -2,6 +2,10 @@
   SDL Rewrite of i_video
 
   because x11 sucks ass imo
+
+
+  and you know what?
+  it works
 */
 
 #include <stdlib.h>
@@ -36,6 +40,11 @@ SDL_Event event;
 // debug
 //#define VIDEODEBUG 1
 
+// window scaling
+#define YSCALEFAC 4
+#define XSCALEFAC 4
+
+
 /*
   Init SDL
 */
@@ -45,11 +54,11 @@ void I_InitGraphics (void){
     I_Error("Failed to init SDL in I_InitGraphics");
   }
 
-  display = SDL_SetVideoMode(SCREENWIDTH, SCREENHEIGHT, 8, SDL_HWSURFACE);
+  display = SDL_SetVideoMode(SCREENWIDTH * XSCALEFAC, SCREENHEIGHT * YSCALEFAC, 8, SDL_HWSURFACE);
   if(!display){
     I_Error("Display was not created for some reason, figure it out.");
   }                  
-  //SDL_WM_SetCaption("LW-Doom SDL","Doom");          
+  SDL_WM_SetCaption("LW-Doom SDL","Doom");          
   // grab mouse
   //SDL_WM_GrabInput(SDL_GRAB_ON); // fire
 
@@ -58,8 +67,7 @@ void I_InitGraphics (void){
   // kys (keep yourself safe)
   SDL_EnableUNICODE(1);
 }
-void I_ReadScreen(byte* src){
-  
+void I_ReadScreen(byte* src){ 
   memcpy(src, screens[0],SCREENWIDTH*SCREENHEIGHT);
 }
 
@@ -158,19 +166,25 @@ void I_FinishUpdate (void){
   // 
   // such a bad hack
   
-  int i = 0, x = 0, y = 0, t = 0;
+    int i = 1, x = 0, y = 0, t = 0, z = 0;
     while(i < SCREENWIDTH*SCREENHEIGHT){ //
       if(i % (SCREENWIDTH*2) == 0){
         x = 0;
         y++;
-        if( y % 2 == 0 && y != 0){
+        if(t++ < YSCALEFAC+3){
           i = i - (SCREENWIDTH*2);
-        } 
+        }
+        else {
+            t = 0;
+        }
       }else{
         x++;
       }
-      Uint8 *p = ((Uint8 *) display->pixels+ y * display->pitch+ x * display->format->BytesPerPixel);
-      *(Uint32 *)p = screens[0][i++];
+      for (int c = 0; c < XSCALEFAC - 1; c++) {
+          Uint8* p = ((Uint8*)display->pixels + y * display->pitch + (x++) * display->format->BytesPerPixel);
+          *(Uint32*)p = screens[0][i];
+      }
+      i++;
     }
 
   //display = surface;  
