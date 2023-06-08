@@ -20,7 +20,9 @@
 //	Handles WAD file header, directory, lump I/O.
 //
 //-----------------------------------------------------------------------------
-
+#ifndef __unix__
+#define __USE_MINGW_ANSI_STDIO 1
+#endif
 
 static const char
 rcsid[] = "$Id: w_wad.c,v 1.5 1997/02/03 16:47:57 b1 Exp $";
@@ -48,6 +50,17 @@ rcsid[] = "$Id: w_wad.c,v 1.5 1997/02/03 16:47:57 b1 Exp $";
 #endif
 #include "w_wad.h"
 
+
+#ifndef __unix__
+#define O_RDONLY 0
+#define O_WRONLY 1
+#define O_RDWR 1
+#define O_BINARY 1
+#define _NO_OLDNAMES  // Exclude conflicting declaration
+
+//#include <io.h>
+#include <fcntl.h>
+#endif
 
 
 

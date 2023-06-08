@@ -6,11 +6,13 @@
 
 #include <stdlib.h>
 #include <unistd.h>
+#ifdef __unix__
 #include <sys/ipc.h>
 #include <sys/shm.h>
-
-
 #include <netinet/in.h>
+
+#endif
+
 #include <errno.h>
 #include <signal.h>
 
@@ -24,8 +26,11 @@
 
 
 // SDL shit
+//#ifdef __unix__
 #include <SDL/SDL.h>
-
+//#else
+//#include <SDL.h>
+//#endif
 SDL_Surface *display;
 SDL_Event event;
 // debug
@@ -154,12 +159,11 @@ void I_FinishUpdate (void){
   // such a bad hack
   
   int i = 0, x = 0, y = 0, t = 0;
-  if(gamestate == GS_LEVEL){
     while(i < SCREENWIDTH*SCREENHEIGHT){ //
       if(i % (SCREENWIDTH*2) == 0){
         x = 0;
         y++;
-        if(gamestate == GS_LEVEL && y % 2 == 0 && y != 0){
+        if( y % 2 == 0 && y != 0){
           i = i - (SCREENWIDTH*2);
         } 
       }else{
@@ -168,18 +172,7 @@ void I_FinishUpdate (void){
       Uint8 *p = ((Uint8 *) display->pixels+ y * display->pitch+ x * display->format->BytesPerPixel);
       *(Uint32 *)p = screens[0][i++];
     }
-  }else{
-    while(i < SCREENWIDTH*SCREENHEIGHT * 2){ //
-      if(i % (SCREENWIDTH*2) == 0){
-        x = 0;
-        y++;
-      }else{
-        x++;
-      }
-      Uint8 *p = ((Uint8 *) display->pixels+ y * display->pitch+ x * display->format->BytesPerPixel);
-      *(Uint32 *)p = screens[0][i++];
-    }
-  }
+
   //display = surface;  
   #ifdef VIDEODEBUG
   SDL_Rect sDim;

@@ -77,6 +77,17 @@ static const char rcsid[] = "$Id: d_main.c,v 1.8 1997/02/03 22:45:09 b1 Exp $";
 
 #include "d_main.h"
 
+// fix for windows
+#ifndef __unix__
+#define R_OK    4       /* Test for read permission.  */
+#define W_OK    2       /* Test for write permission.  */
+//#define   X_OK    1       /* execute permission - unsupported in windows*/
+#define F_OK    0       /* Test for existence.  */
+
+
+#endif
+
+
 //
 // D-DoomLoop()
 // Not a globally visible function,
