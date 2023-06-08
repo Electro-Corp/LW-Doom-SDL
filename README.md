@@ -7,6 +7,17 @@ it works well on wsl 2: <br>
 not on replit tho, rendering is broken there. but hey it works
 <br>
 
+## Compiling
+requires:
+* linux
+* SDL 1
+
+```
+cd src/doom
+make
+```
+Binary will be in the `linux` directory
+
 ## Modifications 
   * `i_video.c` - use SDL
   * probabbly other files i forgor (:skull:) about
