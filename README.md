@@ -1,10 +1,15 @@
 # LW-Doom SDL
 attempt to make a version of doom that uses SDL 1
 
+Replit: https://replit.com/@the-electro-bros/LW-Doom
+Compile it yourself: https://github.com/Electro-Corp/LW-Doom-SDL/edit/main/README.md#compiling
+
 it works well on wsl 2: <br>
-![image](https://github.com/Electro-Corp/LW-Doom-SDL/assets/66333305/13db956e-af44-4637-8b51-4d43f9c453d8)
+![image](https://github.com/Electro-Corp/LW-Doom-SDL/assets/66333305/9cae16de-7cbe-4540-a7b7-706dbb61e0d5)<br>
+Do you not want to compile the game? Well good news, it works on replit!
 <br>
-not on replit tho, rendering is broken there. but hey it works
+![image](https://github.com/Electro-Corp/LW-Doom-SDL/assets/66333305/1c06fc83-0fb0-4629-89e2-d3ed79c3c923)
+(it runs at a terrible fps on replit btw)
 <br>
 
 ## Compiling
@@ -18,6 +23,3 @@ make
 ```
 Binary will be in the `linux` directory
 
-## Modifications 
-  * `i_video.c` - use SDL
-  * probabbly other files i forgor (:skull:) about
