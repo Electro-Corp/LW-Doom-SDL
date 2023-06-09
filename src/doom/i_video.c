@@ -43,7 +43,7 @@ SDL_Event event;
 // window scaling
 #define YSCALEFAC 4
 #define XSCALEFAC 4
-
+static int lastmousex = 0, lastmousey = 0;
 
 /*
   Init SDL
@@ -60,7 +60,8 @@ void I_InitGraphics(void) {
     }
     SDL_WM_SetCaption("LW-Doom SDL", "Doom");
     // grab mouse
-    //SDL_WM_GrabInput(SDL_GRAB_ON); // fire
+    SDL_WM_GrabInput(SDL_GRAB_ON); // fire
+    SDL_ShowCursor(0);
 
 
     // init sdl keyboard inputs               
@@ -104,7 +105,9 @@ int translatekey(SDL_KeyboardEvent* key) {
     case SDLK_F10:	rc = KEY_F11;		break;
     case SDLK_F12:	rc = KEY_F12;		break;
     case SDLK_ESCAPE: rc = KEY_ESCAPE; break;
+    case SDLK_RCTRL:
     case SDLK_LCTRL: rc = KEY_RCTRL; break;
+    case SDLK_RSHIFT:
     case SDLK_LSHIFT: rc = KEY_RSHIFT; break;
         //case SDLK_SPACE: rc = KEY_SPACE; break;
     default:
@@ -118,6 +121,7 @@ int translatekey(SDL_KeyboardEvent* key) {
 
 // ticks
 void I_StartTic() {
+    SDL_WarpMouse(0, 0);
     if (!display)return;
     // keyboard 
     event_t eventt;
@@ -138,7 +142,16 @@ void I_StartTic() {
             eventt.data1 = translatekey(&event.key);
             D_PostEvent(&eventt);
             break;
+        case SDL_MOUSEMOTION:
+            eventt.type = ev_mouse;
+            eventt.data2 = ((int)((int) event.motion.x / XSCALEFAC  - lastmousex) * 3) << 2;
+            eventt.data3 = ((int)(lastmousey - (int) event.motion.y / YSCALEFAC )* 3) << 2;
+            lastmousex = (event.motion.x / XSCALEFAC) ;
+            lastmousey = (event.motion.y / YSCALEFAC) ;
+            D_PostEvent(&eventt);
+            break;
         }
+   
     }
 }
 
@@ -165,6 +178,7 @@ void I_UpdateNoBlit(void) {
 void I_FinishUpdate(void) {
     // 
     // such a bad hack
+    // revamp mouse
 
     int i = 1, x = 0, y = 0, t = 0, z = 0;
     while (i < SCREENWIDTH * SCREENHEIGHT) { //
