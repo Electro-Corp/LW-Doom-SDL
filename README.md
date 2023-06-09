@@ -2,7 +2,7 @@
 attempt to make a version of doom that uses SDL 1
 
 Replit: https://replit.com/@the-electro-bros/LW-Doom <br>
-Compile it yourself: [compile](https://github.com/Electro-Corp/LW-Doom-SDL/README.md#compiling)
+Compile it yourself: [compile](https://github.com/Electro-Corp/LW-Doom-SDL/blob/main/README.md#compiling)
 
 it works well on wsl 2: <br>
 ![image](https://github.com/Electro-Corp/LW-Doom-SDL/assets/66333305/9cae16de-7cbe-4540-a7b7-706dbb61e0d5)<br>
