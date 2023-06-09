@@ -23,3 +23,7 @@ make
 ```
 Binary will be in the `linux` directory
 
+## limitations
+* no audio 
+* limited/bad mouse support
+* no net support
